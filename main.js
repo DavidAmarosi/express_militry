@@ -36,10 +36,15 @@ app.get("/products/:id", async (req,res) => {
 })
 app.post("/products", async (req,res) =>{
   try{
-    const data = await readProducts()
-    const body = req.body
-    data.push(body)
-    writeProducts(data)
+    const data = await readProducts();
+    const body = req.body;
+    console.log(body)
+    const maxId = data[data.length -1].id +1
+    const newproject = {id: maxId, ...body} 
+    console.log(newproject)     
+    data.push(newproject)
+    await writeProducts(data)
+    console.log(data)
     res.status(200).json({data: data})
 
   }catch{ res.status(500).json({"error": error})}
