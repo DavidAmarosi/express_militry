@@ -82,7 +82,15 @@ app.delete("/products/:id", async (req, res) => {
       }}
   }catch{res.status(500).json({"error": error})}
 })
-
+app.delete("/products", async (req, res) => {
+    try{
+    const body = req.body;
+    const data = await readProducts()
+    const filterdata = data.filter((data) => data.price == 10)
+    writeProducts(filterdata)
+      }
+  catch{res.status(500).json({"error": error})}
+})
 app.get("/products/search", async (req, res) => {
     try{
     const data = await readProducts()
