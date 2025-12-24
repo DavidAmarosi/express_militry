@@ -161,9 +161,8 @@ app.post("/tasks", async (req,res) =>{
     const body = req.body
     console.log(body)
     if (+body.id <= data[data.length -1].id){return res.status(404).json({"error": "id out of range"})}
-    // if (!body.title && !body.completed && !body.priority){res.status(404).json({error: "bfedbdb"})}
     data.push(body)
-    writeTasks(data)
+    await writeTasks(data)
     console.log(data)
     res.status(200).json({data: data})
 
